@@ -1,0 +1,110 @@
+package AhmaddzakiUbaidillah;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class ItemBelanjaan {
+    private final String nama;
+    private final double harga;
+
+    public ItemBelanjaan(String nama, double harga) {
+        this.nama = nama;
+        this.harga = harga;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public double getHarga() {
+        return harga;
+    }
+}
+
+public class Ahmaddzakiubaidillah {
+    public static void main(String[] args) {
+      Scanner input = new Scanner(System.in);
+        ArrayList<ItemBelanjaan> daftarBelanjaan = new ArrayList<>();
+        double totalHarga = 0; // Menyimpan total harga item belanjaan
+
+        while (true) {
+            System.out.println("Menu:");
+            System.out.println("1. Tambah Item Belanjaan");
+            System.out.println("2. Hapus Item Belanjaan");
+            System.out.println("3. Tampilkan Seluruh Item Belanjaan");
+            System.out.println("4. Cari Item Belanjaan");
+            System.out.println("0. Keluar dari program");
+            System.out.print("Pilih menu: ");
+            int pilihan = input.nextInt();
+            input.nextLine(); // Consume newline
+
+            switch (pilihan) {
+                case 1 -> {
+                    System.out.print("Masukkan Nama Item Belanjaan: ");
+                    String nama = input.nextLine();
+                    System.out.print("Masukkan Harga Item Belanjaan: ");
+                    double harga = input.nextDouble();
+                    input.nextLine(); // Consume newline
+                    daftarBelanjaan.add(new ItemBelanjaan(nama, harga));
+                    totalHarga += harga; // Menambah harga baru ke total harga
+                    System.out.println("Item Belanjaan Telah Ditambahkan!");
+              }
+                case 2 -> {
+                    if (daftarBelanjaan.isEmpty()) {
+                        System.out.println("Daftar Belanjaan Kosong!");
+                        break;
+                    }
+                    System.out.print("Masukkan Nama Item Belanjaan yang akan dihapus: ");
+                    String itemHapus = input.nextLine();
+                    for (ItemBelanjaan item : daftarBelanjaan) {
+                        if (item.getNama().equalsIgnoreCase(itemHapus)) {
+                            totalHarga -= item.getHarga(); // Mengurangi harga item yang dihapus dari total harga
+                            daftarBelanjaan.remove(item);
+                            System.out.println("Item Belanjaan Telah Dihapus!");
+                            break;
+                        }
+                    }
+                    System.out.println("Item Belanjaan Tidak Ditemukan!");
+              }
+                case 3 -> {
+                    if (daftarBelanjaan.isEmpty()) {
+                        System.out.println("Daftar Belanjaan Kosong!");
+                        break;
+                    }
+                    System.out.println("Daftar Seluruh Item Belanjaan:");
+                    for (ItemBelanjaan item : daftarBelanjaan) {
+                        System.out.println("Nama: " + item.getNama() + ", Harga: " + item.getHarga());
+                    }
+                    System.out.println("Total Harga: " + totalHarga); // Menampilkan total harga
+              }
+                case 4 -> {
+                    if (daftarBelanjaan.isEmpty()) {
+                        System.out.println("Daftar Belanjaan Kosong!");
+                        break;
+                    }
+                    System.out.print("Masukkan Nama Item Belanjaan yang akan dicari: ");
+                    String itemCari = input.nextLine();
+                    boolean found = false;
+                    for (ItemBelanjaan item : daftarBelanjaan) {
+                        if (item.getNama().equalsIgnoreCase(itemCari)) {
+                            System.out.println("Item Belanjaan ditemukan:");
+                            System.out.println("Nama: " + item.getNama() + ", Harga: " + item.getHarga());
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        System.out.println("Item Belanjaan Tidak Ditemukan!");
+                    }
+              }
+                case 0 -> {
+                    System.out.println("Keluar dari program...");
+                    return;
+              }
+                default -> System.out.println("Menu Tidak Tersedia");
+            }
+            System.out.println();
+        }
+    }
+}
+                        
